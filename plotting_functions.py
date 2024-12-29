@@ -67,13 +67,15 @@ def plotly_line(fig, df, x, y,color = ["red"], logx=False, logy=False, invertx=F
             fig.update_xaxes(title_text=column, row=1, col=i+1)
         fig.update_yaxes(title_text=y, row=1, col=1)
 
-    fig.update_layout(
-        height=h,
-        width=len(columns) * 400,  # Adjust width based on the number of columns
-        title_text=f'Line Plots for {x} vs. {y}',
-        showlegend=True
-    )
-    st.plotly_chart(fig)
+        fig.update_layout(
+            height=h,
+            width=len(columns) * 400,  # Adjust width based on the number of columns
+            title_text=f'Line Plots for {x} vs. {y}',
+            showlegend=True
+        )
+        st.plotly_chart(fig)
+    else:
+        st.wrie("Choose a color for each Curve")
 
 
 
