@@ -276,7 +276,7 @@ def prediction(best, arps_param, clean_df, names_list, x_axis):
     predict_end_date = st.date_input("End of prediction")
     start_date = pd.Timestamp(start_date)
     predict_end_date = pd.Timestamp(predict_end_date)
-    Time = generate_time_list(start_date, end_date)
+    Time = generate_time_list(start_date, predict_end_date)
     best_index = models.index(best)
     qi = arps_param.loc["qi"][best_index]
     Di = arps_param.loc["Di"][best_index]
