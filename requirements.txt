@@ -1,0 +1,10 @@
+pandas
+numpy
+lasio
+matplotlib
+openpyxl
+streamlit
+welly
+scipy
+plotly
+datetime
