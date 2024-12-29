@@ -30,8 +30,8 @@ def data_summary(df, curves_list, ind):
 
 def scatter(df):    
     col1, col2, col3 = st.columns(3)
-    x_axis_val = col3.multiselect('Select Curves To Plot', df.columns, key=f"x_axis_scatter")
-    y_axis_val = col3.selectbox('Y-axis', options=df.columns, key=f"y_axis_scatter")
+    x_axis_val = col3.multiselect('Select Curves To Plot', df.columns, key=f"x_axis")
+    y_axis_val = col3.selectbox('Y-axis', options=df.columns, key=f"y_axis")
     add_color = col3.checkbox("Add Color", value=False) 
     if add_color:
         selected_color = col3.selectbox('Color by', options=df.columns, key=f"color_scatter")
@@ -61,8 +61,8 @@ color_picker = ["red", "green", "blue", "yellow", "purple", "black", "orange"]
 
 def plot(df):
     col1, col2, col3 = st.columns(3)
-    x_axis_val = col3.multiselect('Select Curves To Plot', df.columns, key=f"x_axis_plot")
-    y_axis_val = col3.selectbox('Y-axis', options=df.columns, key=f"y_axis_plot")
+    x_axis_val = col3.multiselect('Select Curves To Plot', df.columns, key=f"x_axis")
+    y_axis_val = col3.selectbox('Y-axis', options=df.columns, key=f"y_axis")
     selected_color = col3.multiselect('Pick a color', colors, default=["blue"], key=f"color_plot")
 
     col1.header('X-Axis')
