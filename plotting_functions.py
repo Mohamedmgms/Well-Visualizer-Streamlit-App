@@ -75,7 +75,7 @@ def plotly_line(fig, df, x, y,color = ["red"], logx=False, logy=False, invertx=F
         )
         st.plotly_chart(fig)
     else:
-        st.wrie("Choose a color for each Curve")
+        st.write("Choose a color for each Curve")
 
 
 
