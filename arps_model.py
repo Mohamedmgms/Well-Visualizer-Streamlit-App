@@ -44,7 +44,6 @@ def harmonic_time_from_rate(q, qi, Di):
 
 def hyperbolic_model(t, qi, Di, b):
     Q = qi / (1 + b * Di * t)**(1/b)
-    # st.write(Q)
     return Q
 def hyperbolic_rate_from_cum(Gp, qi, Di, b):
     if b != 1:
@@ -56,13 +55,9 @@ def hyperbolic_rate_from_cum(Gp, qi, Di, b):
     return Qt
 def hyperbolic_cum_from_rate(q, qi, Di, b):
     if b != 1:
-        t1 = (q ** b)/(Di * (1-b))
-        t2 = qi ** (1-b)
-        t3 = q ** (1-b)
-        Gp = t1 * (t2-t3)
+        Gp = (qi / ((1 - b) * Di)) * (1 - (q / qi) ** (1 - b))
     else:
-        Gp = (qi/Di) * np.log(qi/q)
-
+        Gp = (qi / Di) * (1 - np.exp(-Di * (qi / q - 1) / Di))
     return Gp
 
 def hyperbolic_cum_from_time(t, qi, Di, b):
