@@ -283,14 +283,14 @@ def prediction(best, arps_param, clean_df, names_list, x_axis):
     b = arps_param.loc["b"][best_index]
     if best_index == 2:
         Q_fitted = arps_model.hyperbolic_model(Time, qi, Di, b)
-        G_fitted = arps_model.hyperbolic_cum_from_rate(Q_fitted, qi, Di, b)
+        G_fitted = Q_fitted.cumsum()
     elif best_index == 1:
         Q_fitted = arps_model.harmonic_model(Time, qi, Di)
-        G_fitted = arps_model.harmonic_cum_from_rate(Q_fitted, qi, Di)        
+        G_fitted = Q_fitted.cumsum()
     elif best_index == 0:
         Q_fitted = arps_model.exponential_model(Time, qi, Di)
-        G_fitted = arps_model.exponential_cum_from_rate(Q_fitted, qi, Di)  
-
+        G_fitted = Q_fitted.cumsum()
+        
     df = pd.DataFrame({
         'Time': Time,
         'Q_fitted': Q_fitted,
