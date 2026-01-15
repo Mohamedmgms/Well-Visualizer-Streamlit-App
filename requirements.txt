@@ -4,7 +4,8 @@ lasio
 matplotlib
 openpyxl
 streamlit
-welly
+welly==0.7.0
 scipy
 plotly
 datetime
+setuptools>=67.0.0
