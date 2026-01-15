@@ -241,24 +241,35 @@ def predict_plot(df, best, x_axis):
     st.plotly_chart(time_plot)
     st.plotly_chart(cum_plot)
 
-def safe_add_timedelta(start_date, time_delta, unit='D'):
+import pandas as pd
+import numpy as np
+
+def safe_add_timedelta(start_date, time_delta, unit='D', max_years=200):
     """
-    Safely add a timedelta to start_date without exceeding pandas limits.
+    Safely add a numeric timedelta to a start_date without exceeding pandas datetime limits.
+    
+    Parameters:
+        start_date (pd.Timestamp)
+        time_delta (float or pd.Timedelta)
+        unit (str): unit of time_delta if numeric
+        max_years (int): maximum number of years to allow in the future
     """
-    # Convert numeric time_delta to Timedelta if needed
+    # If numeric, convert to timedelta
     if not isinstance(time_delta, pd.Timedelta):
         time_delta = pd.to_timedelta(time_delta, unit=unit)
-
-    # Compute max allowed delta without exceeding Timestamp.max
-    max_delta = pd.Timestamp.max - start_date
-    min_delta = pd.Timestamp.min - start_date
-
-    # Clip delta to safe range
+    
+    # Cap delta to max_years to prevent extreme overflows
+    max_delta = pd.to_timedelta(max_years*365, unit='D')
+    min_delta = pd.to_timedelta(-max_years*365, unit='D')
+    
+    # Clip the delta
     safe_delta = np.minimum(time_delta, max_delta)
     safe_delta = np.maximum(safe_delta, min_delta)
-
+    
     # Add safely
-    return start_date + safe_delta
+    date = start_date + safe_delta
+    return date
+
 
 
 def prediction(best, arps_param, clean_df, names_list, x_axis):
