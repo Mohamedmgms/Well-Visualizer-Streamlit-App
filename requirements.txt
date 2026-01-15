@@ -1,4 +1,5 @@
 setuptools>=67.0.0
+pip --upgrade
 welly==0.7.0
 pandas
 numpy
