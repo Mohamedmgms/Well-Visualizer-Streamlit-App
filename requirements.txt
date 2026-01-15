@@ -1,13 +1,9 @@
-setuptools>=67.0.0
-pip --upgrade
+setuptools>=68.0.0
+wheel
+pip>=23.0
 welly==0.7.0
-pandas
-numpy
-lasio
-matplotlib
-openpyxl
 streamlit
-scipy
+numpy
+pandas
+matplotlib
 plotly
-datetime
-
