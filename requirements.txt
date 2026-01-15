@@ -7,3 +7,7 @@ numpy
 pandas
 matplotlib
 plotly
+lasio
+openpyxl
+scipy
+datetime
