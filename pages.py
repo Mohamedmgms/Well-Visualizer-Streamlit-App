@@ -242,20 +242,24 @@ def predict_plot(df, best, x_axis):
     st.plotly_chart(cum_plot)
 
 def safe_add_timedelta(start_date, time_delta, unit='D'):
+    """
+    Safely add a timedelta to start_date without exceeding pandas limits.
+    """
+    # Convert numeric time_delta to Timedelta if needed
     if not isinstance(time_delta, pd.Timedelta):
         time_delta = pd.to_timedelta(time_delta, unit=unit)
-    
-    # Clip the resulting date to pandas datetime limits
-    max_date = pd.Timestamp.max
-    min_date = pd.Timestamp.min
-    result = start_date + time_delta
-    
-    if result > max_date:
-        result = max_date
-    elif result < min_date:
-        result = min_date
-    
-    return result
+
+    # Compute max allowed delta without exceeding Timestamp.max
+    max_delta = pd.Timestamp.max - start_date
+    min_delta = pd.Timestamp.min - start_date
+
+    # Clip delta to safe range
+    safe_delta = np.minimum(time_delta, max_delta)
+    safe_delta = np.maximum(safe_delta, min_delta)
+
+    # Add safely
+    return start_date + safe_delta
+
 
 def prediction(best, arps_param, clean_df, names_list, x_axis):
     st.header("Dates")
