@@ -241,6 +241,22 @@ def predict_plot(df, best, x_axis):
     st.plotly_chart(time_plot)
     st.plotly_chart(cum_plot)
 
+def safe_add_timedelta(start_date, time_delta, unit='D'):
+    if not isinstance(time_delta, pd.Timedelta):
+        time_delta = pd.to_timedelta(time_delta, unit=unit)
+    
+    # Clip the resulting date to pandas datetime limits
+    max_date = pd.Timestamp.max
+    min_date = pd.Timestamp.min
+    result = start_date + time_delta
+    
+    if result > max_date:
+        result = max_date
+    elif result < min_date:
+        result = min_date
+    
+    return result
+
 def prediction(best, arps_param, clean_df, names_list, x_axis):
     st.header("Dates")
     col1, col2 = st.columns(2)
@@ -313,7 +329,7 @@ def prediction(best, arps_param, clean_df, names_list, x_axis):
         cum_at_min = arps_model.exponential_cum_from_rate(min_rate, qi, Di)
 
     time_delta = timedelta(days=time_at_min)
-    date = start_date + time_delta
+    date = safe_add_timedelta(start_date, time_delta)
     col1.header("At Time:")
     col1.write(f"In {date.date()}")
     col1.write(f"After {time_at_min} days production rate will be {min_rate}")
