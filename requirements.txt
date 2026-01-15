@@ -1,11 +1,12 @@
+setuptools>=67.0.0
+welly==0.7.0
 pandas
 numpy
 lasio
 matplotlib
 openpyxl
 streamlit
-welly==0.7.0
 scipy
 plotly
 datetime
-setuptools>=67.0.0
+
